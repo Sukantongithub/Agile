@@ -1,0 +1,30 @@
+pytesseract==0.3.10
+opencv-python==4.8.1.78
+Pillow==10.0.0
+numpy==1.26.1
+# web interface
+flask==3.0.0
+# database
+pymongo==4.15.4
+dnspython==2.8.0
+# image processing
+img2pdf==0.5.1
+# deep learning ocr
+easyocr>=1.7.0
+paddlepaddle>=2.6.2
+paddleocr>=2.7.0
+torch>=2.0.1
+torchvision>=0.15.2
+# dev
+pytest==7.4.0
+
+# RAG & LLM
+langchain
+langchain-community
+langchain-huggingface
+langchain-openai
+faiss-cpu
+sentence-transformers
+chromadb
+openai
+duckduckgo-search

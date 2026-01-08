@@ -1,0 +1,51 @@
+﻿Image size: (1200, 1600)
+Image mode: RGB
+
+================================================================================
+OCR TEXT EXTRACTION:
+================================================================================
+Extracted text (637 characters):
+
+PERSONAL DETAILS FORM
+
+APPLICANT INFORMATION
+
+Name: Rajesh Kumar Sharma
+Father's Name: Vijay Kumar Sharma
+Date of Birth: 15/08/1990
+
+Gender: Male
+
+RESIDENTIAL ADDRESS
+
+Address: House No 234, Green Park Extension, Sector 12, New Delhi
+Pincode: 110016
+
+State: Delhi
+
+CONTACT INFORMATION
+Mobile: 9876543210
+
+Email: rajesh.sharma@email.com
+Phone: 8765432109
+
+IDENTIFICATION NUMBERS
+Aadhaar: 1234 5678 9012
+PAN: ABCDE1234F
+
+Bank Account: 12345678901
+Passport: M1234567
+
+OTHER DETAILS (Testing Context Detection)
+
+Reference Number: 9988776655
+Transaction ID: 110025
+Order Number: 556677
+
+PASSWORD INFORMATION
+
+Password: MySecret123!
+PIN: 1234
+
+
+================================================================================

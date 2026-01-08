@@ -1,0 +1,87 @@
+﻿================================================================================
+TESTING FIELD DETECTION PATTERNS
+================================================================================
+
+Total fields detected: 28
+
+
+IDENTIFICATION:
+--------------------------------------------------------------------------------
+  Aadhaar: 1234 5678 9012
+    Confidence: 0.95, Auto-selected: True
+  PAN: ABCDE1234F
+    Confidence: 0.95, Auto-selected: True
+  Passport: M1234567
+    Confidence: 0.95, Auto-selected: True
+
+PERSONAL INFO:
+--------------------------------------------------------------------------------
+  Email: rajesh.sharma@email.com
+    Confidence: 0.85, Auto-selected: True
+  Mobile: Mobile: 9876543210
+    Confidence: 0.85, Auto-selected: True
+  Mobile: Phone: 8765432109
+    Confidence: 0.85, Auto-selected: True
+  Landline: Phone: 8765432109
+    Confidence: 0.85, Auto-selected: True
+  DOB: Date of Birth: 15/08/1990
+    Confidence: 0.85, Auto-selected: True
+  Pincode: Pincode: 110016
+    Confidence: 0.85, Auto-selected: True
+  Name: Rajesh Kumar Sharma
+Father
+    Confidence: 0.85, Auto-selected: True
+  Name: Vijay Kumar Sharma
+Date
+    Confidence: 0.85, Auto-selected: True
+  Father Name: Vijay Kumar Sharma
+Date
+    Confidence: 0.85, Auto-selected: True
+  Address: Address: House No 234, Green Park Extension, Secto
+    Confidence: 0.85, Auto-selected: True
+  Gender: Male
+    Confidence: 0.85, Auto-selected: True
+  Mobile (standalone): 9876543210
+    Confidence: 0.7, Auto-selected: True
+  Mobile (standalone): 8765432109
+    Confidence: 0.7, Auto-selected: True
+  Mobile (standalone): 9988776655
+    Confidence: 0.7, Auto-selected: True
+  Landline (standalone): 110016
+    Confidence: 0.7, Auto-selected: True
+  Landline (standalone): 110025
+    Confidence: 0.7, Auto-selected: True
+  Landline (standalone): 556677
+    Confidence: 0.7, Auto-selected: True
+  Pincode (standalone): 110016
+    Confidence: 0.7, Auto-selected: True
+  Pincode (standalone): 110025
+    Confidence: 0.7, Auto-selected: True
+  Pincode (standalone): 556677
+    Confidence: 0.7, Auto-selected: True
+
+SENSITIVE PERSONAL DATA:
+--------------------------------------------------------------------------------
+  Password: Passport:
+    Confidence: 0.9, Auto-selected: True
+  Password: PASSWORD INFORMATION
+    Confidence: 0.9, Auto-selected: True
+  Password: Password: MySecret123!
+    Confidence: 0.9, Auto-selected: True
+  Bank Account: 12345678901
+    Confidence: 0.9, Auto-selected: True
+  PIN: PIN: 1234
+    Confidence: 0.9, Auto-selected: True
+
+================================================================================
+CONTEXT-AWARE PATTERN TEST RESULTS:
+================================================================================
+
+[EXPECTED] Mobile: 9876543210 detected: True
+[EXPECTED] Phone: 8765432109 detected: True
+[EXPECTED] Pincode: 110016 detected: True
+
+[FALSE POSITIVE CHECK] Reference 9988776655 detected as Mobile: False
+[FALSE POSITIVE CHECK] Transaction 110025 detected as Pincode: False
+
+================================================================================

@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "document_type": "COLLEGE_ID",
+  "extracted_text": "\n            College Identification Card\n            Student ID: COL123456\n            Student Name: Priya Sharma\n            Course: Computer Science\n            Academic Year: 2023-24\n            Valid Until: March 2024\n            ",
+  "extracted_fields": {},
+  "metrics": {
+    "total_fields": 0,
+    "high_confidence_fields": 0,
+    "average_confidence": 0.0
+  },
+  "processing_timestamp": "2025-11-13T10:53:26.347104",
+  "image_path": "ml_training/train_img/college_id.jpg"
+}

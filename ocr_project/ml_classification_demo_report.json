@@ -1,0 +1,43 @@
+{
+  "demo_metadata": {
+    "timestamp": "2025-11-13T09:18:55.161288",
+    "system_version": "1.0.0 - ML Enhanced",
+    "demo_type": "Complete ML Document Classification"
+  },
+  "performance_metrics": {
+    "success_rate_percent": 87.5,
+    "average_processing_time_seconds": 0.021853119134902954,
+    "throughput_docs_per_second": 45.76005804145545,
+    "total_scenarios_tested": 8
+  },
+  "supported_document_types": [
+    "AADHAR_CARD",
+    "PAN_CARD",
+    "VOTER_ID",
+    "DRIVING_LICENSE",
+    "PASSPORT",
+    "MARKSHEET",
+    "RATION_CARD",
+    "BANK_PASSBOOK",
+    "BIRTH_CERTIFICATE",
+    "COMMUNITY_CERTIFICATE",
+    "SMART_CARD"
+  ],
+  "field_categories": [
+    "name",
+    "address",
+    "phone_number",
+    "aadhar_number",
+    "id_number",
+    "other"
+  ],
+  "features": {
+    "ml_enhanced_classification": true,
+    "multilingual_support": true,
+    "ocr_error_tolerance": true,
+    "fuzzy_matching": true,
+    "context_aware_boosting": true,
+    "real_time_processing": true
+  },
+  "system_status": "PRODUCTION_READY"
+}

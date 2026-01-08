@@ -1,0 +1,25 @@
+# Core dependencies that should install without issues
+pytesseract==0.3.10
+opencv-python==4.8.1.78
+Pillow==10.0.0
+numpy==1.26.1
+
+# Basic scientific computing
+scipy==1.11.3
+scikit-learn==1.3.1
+
+# Document processing
+python-docx==0.8.11
+pandas==2.1.3
+PyMuPDF==1.23.8
+pdfplumber==0.9.0
+PyPDF2==3.0.1
+
+# Web framework
+flask==3.0.0
+
+# Database
+pymongo==4.6.0
+
+# Testing
+pytest==7.4.0

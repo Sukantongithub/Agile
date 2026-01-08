@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processing History - SecureRedact</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* Base Colors */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --bg-glass: rgba(30, 41, 59, 0.6);
+            --bg-glass-light: rgba(51, 65, 85, 0.4);
+            
+            /* Primary Brand Colors */
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --primary-light: #6366f1;
+            --primary-glow: rgba(79, 70, 229, 0.3);
+            
+            /* Accent Colors */
+            --accent-purple: #8b5cf6;
+            --accent-blue: #3b82f6;
+            --accent-cyan: #06b6d4;
+            
+            /* Status Colors */
+            --success: #10b981;
+            --success-light: #34d399;
+            --success-bg: rgba(16, 185, 129, 0.1);
+            --warning: #f59e0b;
+            --warning-light: #fbbf24;
+            --warning-bg: rgba(245, 158, 11, 0.1);
+            --danger: #ef4444;
+            --danger-light: #f87171;
+            --danger-bg: rgba(239, 68, 68, 0.1);
+            --info: #3b82f6;
+            --info-light: #60a5fa;
+            --info-bg: rgba(59, 130, 246, 0.1);
+            
+            /* Text Colors */
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --text-inverse: #0f172a;
+            
+            /* Border Colors */
+            --border-primary: rgba(148, 163, 184, 0.2);
+            --border-secondary: rgba(148, 163, 184, 0.1);
+            --border-accent: rgba(79, 70, 229, 0.3);
+            
+            /* Shadow */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            --shadow-glow: 0 0 20px var(--primary-glow);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--text-primary);
+        }
+
+        /* Header Styles */
+        .header {
+            background: var(--bg-secondary);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-primary);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .header-logo {
+            font-size: 2rem;
+            background: var(--primary);
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .header-text h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .header-text p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .nav-btn {
+            background: var(--primary);
+            color: var(--text-primary);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 40px 20px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .container {
+            background: var(--bg-secondary);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-primary);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .page-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-primary);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-light);
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* History List */
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .history-header h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            color: var(--text-primary);
+        }
+
+        .clear-btn {
+            background: var(--danger-bg);
+            color: var(--danger-light);
+            border: 1px solid var(--danger);
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .clear-btn:hover {
+            background: var(--danger);
+            color: var(--text-primary);
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .history-item {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-primary);
+            border-left: 4px solid var(--primary);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .history-item:hover {
+            background: var(--bg-glass);
+            transform: translateX(4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .history-icon {
+            font-size: 2.5rem;
+            background: var(--bg-glass-light);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+        }
+
+        .history-details {
+            flex: 1;
+        }
+
+        .history-name {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .history-meta {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .history-status {
+            background: var(--success-bg);
+            color: var(--success-light);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid var(--success);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-primary);
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--border-primary);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border-primary);
+            padding: 30px 40px;
+            margin-top: auto;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <a href="/" class="header-brand">
+            <div class="header-logo">🔒</div>
+            <div class="header-text">
+                <h1>SecureRedact</h1>
+                <p>Enterprise Grade Protection</p>
+            </div>
+        </a>
+        <nav class="header-nav">
+            <a href="/document-redaction" class="nav-link">Dashboard</a>
+            <a href="/history" class="nav-link active">History</a>
+            <a href="/analytics" class="nav-link">Analytics</a>
+            <a href="/settings" class="nav-link">Settings</a>
+            <a href="/logout" class="nav-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <h1 class="page-title">Processing History</h1>
+            <p class="page-subtitle">Track all your document processing activities</p>
+
+            <!-- Stats -->
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalDocs">-</div>
+                    <div class="stat-label">Total Documents</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="todayDocs">-</div>
+                    <div class="stat-label">Processed Today</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="sensitiveFields">-</div>
+                    <div class="stat-label">Sensitive Fields Found</div>
+                </div>
+            </div>
+
+            <!-- History Header -->
+            <div class="history-header">
+                <h2>Recent Activity</h2>
+                <button class="clear-btn" onclick="clearHistory()">🗑️ Clear History</button>
+            </div>
+
+            <!-- Loading State -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <div>Loading history...</div>
+            </div>
+
+            <!-- History List -->
+            <div class="history-list" id="historyList" style="display:none;"></div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <strong>SecureRedact AI</strong> © 2025. Powered by OpenCV • Tesseract OCR • Flask
+    </footer>
+
+    <script>
+        // Document type icons
+        const docTypeIcons = {
+            'Aadhaar Card': '🆔',
+            'PAN Card': '💳',
+            'Passport': '🛂',
+            'Voter ID Card': '🗳️',
+            'Driving License': '🚗',
+            'Marksheet': '📊',
+            'College ID Card': '🎓',
+            'Bank Passbook': '🏦',
+            'Bank Statement': '📈',
+            'Invoice': '🧾',
+            'Bill/Receipt': '🧾',
+            'Salary Slip': '💰',
+            'Community Certificate': '📜',
+            'Medical Report': '🏥',
+            'Unknown Document': '📄'
+        };
+
+        // Load history on page load
+        async function loadHistory() {
+            try {
+                const res = await fetch('/api/history');
+                const data = await res.json();
+
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('historyList').style.display = 'flex';
+
+                if (data.success && data.history.length > 0) {
+                    const history = data.history;
+
+                    // Update stats
+                    const totalDocs = history.length;
+                    const today = new Date().toDateString();
+                    const todayDocs = history.filter(item => {
+                        const itemDate = new Date(item.timestamp).toDateString();
+                        return itemDate === today;
+                    }).length;
+                    const sensitiveFields = history.reduce((sum, item) => sum + (item.sensitive_fields || 0), 0);
+
+                    document.getElementById('totalDocs').textContent = totalDocs;
+                    document.getElementById('todayDocs').textContent = todayDocs;
+                    document.getElementById('sensitiveFields').textContent = sensitiveFields;
+
+                    // Render history list
+                    const listHtml = history.map(item => {
+                        const icon = docTypeIcons[item.document_type] || '📄';
+                        const date = new Date(item.timestamp).toLocaleString();
+
+                        return `
+                            <div class="history-item">
+                                <div class="history-icon">${icon}</div>
+                                <div class="history-details">
+                                    <div class="history-name">${item.filename}</div>
+                                    <div class="history-meta">
+                                        <span class="meta-item">📄 ${item.document_type}</span>
+                                        <span class="meta-item">🔍 ${item.total_fields} fields</span>
+                                        <span class="meta-item">⚠️ ${item.sensitive_fields || 0} sensitive</span>
+                                        <span class="meta-item">📅 ${date}</span>
+                                    </div>
+                                </div>
+                                <div class="history-status">${item.status}</div>
+                            </div>
+                        `;
+                    }).join('');
+
+                    document.getElementById('historyList').innerHTML = listHtml;
+                } else {
+                    // Empty state
+                    document.getElementById('historyList').innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-icon">📭</div>
+                            <h3>No History Yet</h3>
+                            <p>Start processing documents to see your history here</p>
+                        </div>
+                    `;
+                }
+            } catch (err) {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('historyList').style.display = 'flex';
+                document.getElementById('historyList').innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">⚠️</div>
+                        <h3>Failed to Load History</h3>
+                        <p>${err.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function clearHistory() {
+            if (!confirm('Are you sure you want to clear all history? This cannot be undone.')) {
+                return;
+            }
+
+            try {
+                // Note: You'll need to implement a DELETE endpoint in the backend
+                alert('Clear history functionality will be implemented');
+            } catch (err) {
+                alert('Failed to clear history: ' + err.message);
+            }
+        }
+
+        // Load history when page loads
+        loadHistory();
+    </script>
+</body>
+
+</html>

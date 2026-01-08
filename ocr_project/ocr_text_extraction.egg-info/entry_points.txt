@@ -1,0 +1,2 @@
+[console_scripts]
+ocr-extract = ocr.ocr:main

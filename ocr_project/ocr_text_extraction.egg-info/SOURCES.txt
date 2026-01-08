@@ -1,0 +1,13 @@
+README.md
+pyproject.toml
+ocr/__init__.py
+ocr/ocr.py
+ocr/preprocess.py
+ocr_text_extraction.egg-info/PKG-INFO
+ocr_text_extraction.egg-info/SOURCES.txt
+ocr_text_extraction.egg-info/dependency_links.txt
+ocr_text_extraction.egg-info/entry_points.txt
+ocr_text_extraction.egg-info/requires.txt
+ocr_text_extraction.egg-info/top_level.txt
+tests/test_ocr.py
+tests/test_preprocess.py

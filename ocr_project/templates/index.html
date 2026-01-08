@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Redaction - AI Powered</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-light: #6366f1;
+            --primary-dark: #4338ca;
+            --secondary: #8b5cf6;
+            --success: #10b981;
+            --success-light: #34d399;
+            --danger: #ef4444;
+            --danger-light: #f87171;
+            --warning: #f59e0b;
+            --warning-light: #fbbf24;
+            --info: #3b82f6;
+            --dark: #1e293b;
+            --dark-light: #334155;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #94a3b8;
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(100, 116, 139, 0.3);
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--text-primary);
+        }
+
+        /* Header Styles */
+        .header {
+            background: var(--bg-secondary);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .header-logo {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .header-text h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .header-text p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .nav-btn {
+            background: var(--primary);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 40px 20px;
+            width: 100%;
+            /* max-width removed to use full browser width */
+            margin: 0 auto;
+        }
+
+        .container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .page-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        /* Upload Area */
+        .upload-area {
+            background: var(--bg-secondary);
+            border: 2px dashed var(--gray);
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-area:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.2);
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+            color: var(--primary-light);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .upload-area h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.75rem;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .upload-area p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 16px 20px;
+            margin: 20px 0;
+            border-radius: 12px;
+            display: none;
+            backdrop-filter: blur(10px);
+            animation: slideDown 0.3s ease;
+            border-left: 4px solid;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success-light);
+            border-left-color: var(--success);
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger-light);
+            border-left-color: var(--danger);
+        }
+
+        /* Loading */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--bg-tertiary);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Preview Section */
+        .preview {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Preview Controls */
+        .preview-controls {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-primary);
+            color: var(--text-primary);
+            padding: 10px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .control-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .control-btn:active {
+            transform: translateY(0);
+        }
+
+        .zoom-indicator,
+        .rotation-indicator {
+            background: var(--bg-tertiary);
+            color: var(--primary-light);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        /* Image Container with Pan Support */
+        .image-container {
+            position: relative;
+            overflow: auto;
+            max-height: 600px;
+            border-radius: 16px;
+            margin: 20px 0;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-primary);
+            cursor: grab;
+        }
+
+        .image-container:active {
+            cursor: grabbing;
+        }
+
+        .image-container img {
+            display: block;
+            margin: auto;
+            transition: transform 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        #docImage {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        /* Document Type Banner */
+        .document-type-banner {
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px 28px;
+            margin: 24px 0;
+            display: none;
+            align-items: center;
+            gap: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        .doc-type-icon {
+            font-size: 2.5rem;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            color: var(--primary-light);
+        }
+
+        .doc-type-info {
+            flex: 1;
+        }
+
+        .doc-type-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .doc-type-meta {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .confidence-badge {
+            background: var(--success);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .confidence-low {
+            background: var(--warning);
+        }
+
+        /* Fields List */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0 20px;
+        }
+
+        .section-header h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .badge {
+            background: var(--primary);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .field-item {
+            background: var(--bg-secondary);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-left: 4px solid var(--primary);
+            padding: 16px 20px;
+            margin: 12px 0;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .field-item:hover {
+            background: var(--bg-tertiary);
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .field-item.sensitive {
+            border-left-color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .field-item label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .field-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .field-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .field-value {
+            color: var(--text-secondary);
+        }
+
+        .field-meta {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-left: auto;
+        }
+
+        .sensitive-tag {
+            background: var(--danger);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Buttons & Controls */
+        button {
+            padding: 12px 28px;
+            margin: 6px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-success:hover {
+            background: var(--success-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--glass-border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+            border-color: var(--primary);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .slider-container {
+            background: var(--bg-secondary);
+            padding: 24px;
+            border-radius: 16px;
+            margin: 24px 0;
+            border: 1px solid var(--glass-border);
+        }
+
+        /* Redaction Options Styles */
+        .redaction-options,
+        .watermark-options,
+        .export-options,
+        .template-management {
+            background: var(--bg-secondary);
+            padding: 24px;
+            border-radius: 16px;
+            margin: 24px 0;
+            border: 1px solid var(--glass-border);
+        }
+
+        .template-management {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            border: 1px solid var(--primary-glow);
+        }
+
+        .section-header h3 {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .option-group {
+            margin-bottom: 20px;
+        }
+
+        .option-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .option-label i {
+            color: var(--primary-light);
+            margin-right: 6px;
+        }
+
+        .style-select {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .style-select:hover {
+            border-color: var(--primary);
+            background: var(--bg-glass);
+        }
+
+        .style-select:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .text-input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+
+        .text-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .option-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .custom-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: var(--bg-tertiary);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            box-shadow: 0 2px 8px var(--primary-glow);
+        }
+
+        .custom-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 8px var(--primary-glow);
+        }
+
+        .custom-slider:hover::-webkit-slider-thumb {
+            background: var(--primary-light);
+        }
+
+        .custom-slider:hover::-moz-range-thumb {
+            background: var(--primary-light);
+        }
+
+        .slider-container {
+            background: var(--bg-secondary);
+            padding: 24px;
+            border-radius: 16px;
+            margin: 24px 0;
+            border: 1px solid var(--glass-border);
+        }
+
+        .slider-label {
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .slider-value {
+            color: var(--primary-light);
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: var(--bg-tertiary);
+            outline: none;
+        }
+
+        .control-panel {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: var(--bg-secondary);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            padding: 30px 40px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            /* max-width removed to use full browser width */
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-info {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .footer-info strong {
+            color: white;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-info strong i {
+            color: var(--primary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-tech {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Grid Layout for Preview Section */
+        .preview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .preview-left {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .preview-right {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .options-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .fields-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .fields-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .fields-container::-webkit-scrollbar-track {
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+        }
+
+        .fields-container::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        .fields-container::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-light);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .preview-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .options-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 20px 10px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .option-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <a href="/document-redaction" class="header-brand">
+            <div class="header-logo">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="header-text">
+                <h1>SecureRedact Pro</h1>
+                <p>Enterprise Document Security</p>
+            </div>
+        </a>
+        <nav class="header-nav">
+            <a href="/document-redaction" class="nav-link"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="/history" class="nav-link" onclick="showHistory()"><i class="fas fa-history"></i> History</a>
+            <a href="/analytics" class="nav-link"><i class="fas fa-chart-bar"></i> Analytics</a>
+            <a href="/settings" class="nav-link"><i class="fas fa-cog"></i> Settings</a>
+            <a href="/logout" class="nav-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <h1 class="page-title">Document Redaction System</h1>
+            <p class="page-subtitle">AI-Powered Document Classification & Sensitive Data Protection</p>
+
+            <div class="alert alert-error" id="errorAlert"></div>
+            <div class="alert alert-success" id="successAlert"></div>
+
+            <div class="upload-section" id="uploadSection">
+                <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h2>Upload Document</h2>
+                    <p>Click here or drag and drop your document to start</p>
+                    <input type="file" id="fileInput" accept="image/*" style="display:none"
+                        onchange="handleUpload(event)">
+                </div>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <div>Processing document... Please wait</div>
+            </div>
+
+            <div class="preview" id="previewSection">
+                <!-- Grid Layout: Left = Preview, Right = Detection/Fields -->
+                <div class="preview-grid">
+                    <!-- LEFT SIDE: Document Preview -->
+                    <div class="preview-left">
+                        <!-- Document Preview Controls -->
+                        <div class="preview-controls">
+                            <div class="control-group">
+                                <button class="control-btn" onclick="zoomIn()" title="Zoom In">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                                <button class="control-btn" onclick="zoomOut()" title="Zoom Out">
+                                    <i class="fas fa-search-minus"></i>
+                                </button>
+                                <button class="control-btn" onclick="resetZoom()" title="Reset Zoom">
+                                    <i class="fas fa-compress"></i>
+                                </button>
+                                <span class="zoom-indicator" id="zoomLevel">100%</span>
+                            </div>
+                            <div class="control-group">
+                                <button class="control-btn" onclick="rotateLeft()" title="Rotate Left 90°">
+                                    <i class="fas fa-undo"></i>
+                                </button>
+                                <button class="control-btn" onclick="rotateRight()" title="Rotate Right 90°">
+                                    <i class="fas fa-redo"></i>
+                                </button>
+                                <span class="rotation-indicator" id="rotationAngle">0°</span>
+                            </div>
+                        </div>
+
+                        <!-- Image Container with Pan Support -->
+                        <div class="image-container" id="imageContainer">
+                            <img id="docImage" src="" draggable="false">
+                        </div>
+                    </div>
+                    <!-- End preview-left -->
+
+                    <!-- RIGHT SIDE: Document Type + Fields -->
+                    <div class="preview-right">
+                        <div class="document-type-banner" id="docTypeBanner">
+                            <div class="doc-type-icon" id="docTypeIcon">📄</div>
+                            <div class="doc-type-info">
+                                <div class="doc-type-name" id="docTypeName">Unknown Document</div>
+                                <div class="doc-type-meta">AI-powered document classification</div>
+                            </div>
+                            <div class="confidence-badge" id="docTypeConfidence">--</div>
+                        </div>
+
+                        <!-- Fields Section -->
+                        <div class="fields-container">
+                            <div class="section-header">
+                                <h3>Detected Fields</h3>
+                                <span class="badge"><span id="fieldCount">0</span> Selected</span>
+                            </div>
+
+                            <div class="control-panel">
+                                <button class="btn-secondary" onclick="selectAll()"><i class="fas fa-check-double"></i>
+                                    Select All</button>
+                                <button class="btn-secondary" onclick="selectSensitive()"><i
+                                        class="fas fa-exclamation-triangle"></i> Select Sensitive</button>
+                                <button class="btn-secondary" onclick="clearAll()"><i class="fas fa-times-circle"></i>
+                                    Clear All</button>
+                            </div>
+
+                            <div id="fieldsList"></div>
+                        </div>
+                        <!-- End fields-container -->
+                    </div>
+                    <!-- End preview-right -->
+                </div>
+                <!-- End preview-grid -->
+
+                <!-- BOTTOM SECTION: Templates + Redaction Options -->
+                <div class="options-section">
+                    <div class="redaction-options">
+                        <div class="section-header">
+                            <h3>Redaction Options</h3>
+                        </div>
+
+                        <div class="option-group">
+                            <label class="option-label">
+                                <i class="fas fa-paint-brush"></i> Redaction Style
+                            </label>
+                            <select id="redactionStyle" class="style-select">
+                                <option value="blur">Blur (Gaussian)</option>
+                                <option value="blackbox">Black Box</option>
+                                <option value="pixelate">Pixelate</option>
+                                <option value="white">White Box</option>
+                            </select>
+                        </div>
+
+                        <div class="option-group" id="blurStrengthGroup">
+                            <label class="option-label">
+                                <i class="fas fa-adjust"></i> Blur Strength: <span class="slider-value"
+                                    id="blurValue">15</span>
+                            </label>
+                            <input type="range" id="blurSlider" min="5" max="50" value="15" class="custom-slider"
+                                oninput="document.getElementById('blurValue').textContent=this.value">
+                        </div>
+
+                        <div class="option-group" id="pixelSizeGroup" style="display:none;">
+                            <label class="option-label">
+                                <i class="fas fa-th"></i> Pixel Size: <span class="slider-value"
+                                    id="pixelValue">10</span>
+                            </label>
+                            <input type="range" id="pixelSlider" min="5" max="30" value="10" class="custom-slider"
+                                oninput="document.getElementById('pixelValue').textContent=this.value">
+                        </div>
+                    </div>
+
+                    <div class="watermark-options">
+                        <div class="section-header">
+                            <h3>Watermark Options</h3>
+                        </div>
+
+                        <div class="option-group">
+                            <label class="option-label">
+                                <i class="fas fa-font"></i> Watermark Text
+                            </label>
+                            <input type="text" id="watermarkText" placeholder="Enter watermark text (optional)"
+                                class="text-input">
+                        </div>
+
+                        <div class="option-row">
+                            <div class="option-group">
+                                <label class="option-label">
+                                    <i class="fas fa-map-marker-alt"></i> Position
+                                </label>
+                                <select id="watermarkPosition" class="style-select">
+                                    <option value="center">Center</option>
+                                    <option value="top-left">Top Left</option>
+                                    <option value="top-right">Top Right</option>
+                                    <option value="bottom-left">Bottom Left</option>
+                                    <option value="bottom-right">Bottom Right</option>
+                                </select>
+                            </div>
+
+                            <div class="option-group">
+                                <label class="option-label">
+                                    <i class="fas fa-eye"></i> Opacity: <span class="slider-value"
+                                        id="opacityValue">50</span>%
+                                </label>
+                                <input type="range" id="watermarkOpacity" min="10" max="100" value="50"
+                                    class="custom-slider"
+                                    oninput="document.getElementById('opacityValue').textContent=this.value">
+                            </div>
+                        </div>
+
+                        <div class="option-group">
+                            <label class="option-label">
+                                <i class="fas fa-text-height"></i> Font Size: <span class="slider-value"
+                                    id="fontSizeValue">36</span>px
+                            </label>
+                            <input type="range" id="watermarkFontSize" min="20" max="100" value="36"
+                                class="custom-slider"
+                                oninput="document.getElementById('fontSizeValue').textContent=this.value">
+                        </div>
+                    </div>
+
+                    <div class="export-options">
+                        <div class="section-header">
+                            <h3>Export Format</h3>
+                        </div>
+
+                        <div class="option-group">
+                            <label class="option-label">
+                                <i class="fas fa-file-export"></i> Output Format
+                            </label>
+                            <select id="exportFormat" class="style-select">
+                                <option value="png">PNG (Recommended)</option>
+                                <option value="jpeg">JPEG</option>
+                                <option value="pdf">PDF</option>
+                            </select>
+                        </div>
+
+                        <div class="option-group" id="jpegQualityGroup" style="display:none;">
+                            <label class="option-label">
+                                <i class="fas fa-sliders-h"></i> JPEG Quality: <span class="slider-value"
+                                    id="qualityValue">85</span>%
+                            </label>
+                            <input type="range" id="jpegQuality" min="50" max="100" value="85" class="custom-slider"
+                                oninput="document.getElementById('qualityValue').textContent=this.value">
+                        </div>
+                    </div>
+
+                    <div class="template-management">
+                        <div class="section-header">
+                            <h3>Template Management</h3>
+                        </div>
+
+                        <div class="option-row">
+                            <div class="option-group">
+                                <label class="option-label">
+                                    <i class="fas fa-save"></i> Save Current Settings as Template
+                                </label>
+                                <div style="display:flex; gap:8px;">
+                                    <input type="text" id="templateName"
+                                        placeholder="Template name (e.g., Invoice Redaction)" class="text-input"
+                                        style="flex:1;">
+                                    <button class="btn-secondary" onclick="saveTemplate()"><i class="fas fa-save"></i>
+                                        Save</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="option-group">
+                            <label class="option-label">
+                                <i class="fas fa-bolt"></i> Quick Apply Template
+                            </label>
+                            <div style="display:flex; gap:8px;">
+                                <select id="templateSelect" class="style-select" style="flex:1;">
+                                    <option value="">-- Select a template --</option>
+                                </select>
+                                <button class="btn-secondary" onclick="applyTemplate()"><i class="fas fa-magic"></i>
+                                    Apply</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End options-section -->
+
+                <div class="action-buttons">
+                    <button class="btn-success" id="downloadBtn" onclick="downloadRedacted()" disabled>
+                        <i class="fas fa-download"></i> Download Redacted Document
+                    </button>
+                    <button class="btn-secondary" onclick="reset()"><i class="fas fa-redo"></i> Upload New
+                        Document</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <strong><i class="fas fa-shield-alt"></i> SecureRedact Pro</strong> &copy; 2025. All rights reserved.
+            </div>
+            <div class="footer-links">
+                <a href="#"><i class="fas fa-lock"></i> Privacy Policy</a>
+                <a href="#"><i class="fas fa-file-contract"></i> Terms of Service</a>
+                <a href="#"><i class="fas fa-life-ring"></i> Support</a>
+            </div>
+            <div class="footer-tech">
+                Powered by <span><i class="fas fa-brain"></i> OpenCV</span> • <span><i class="fas fa-eye"></i> Tesseract
+                    OCR</span> • <span><i class="fas fa-server"></i> Flask</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let docData = null;
+        let selectedFields = [];
+
+        // Image manipulation state
+        let zoomLevel = 1.0;
+        let rotation = 0; // 0, 90, 180, 270
+        let isPanning = false;
+        let startX = 0;
+        let startY = 0;
+        let scrollLeft = 0;
+        let scrollTop = 0;
+
+        async function handleUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            show('loading');
+            hide('errorAlert');
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const res = await fetch('/api/process-for-redaction', { method: 'POST', body: formData });
+                const data = await res.json();
+
+                if (!data.success) {
+                    showError(data.error || 'Upload failed');
+                    hide('loading');
+                    return;
+                }
+
+                docData = data;
+                selectedFields = [];
+
+                document.getElementById('docImage').src = data.image_data;
+
+                // Display document type
+                if (data.document_type) {
+                    const docTypeIcons = {
+                        'Aadhaar Card': '<i class="fas fa-id-card"></i>',
+                        'PAN Card': '<i class="fas fa-credit-card"></i>',
+                        'Passport': '<i class="fas fa-passport"></i>',
+                        'Voter ID Card': '<i class="fas fa-vote-yea"></i>',
+                        'Driving License': '<i class="fas fa-car"></i>',
+                        'Marksheet': '<i class="fas fa-graduation-cap"></i>',
+                        'College ID Card': '<i class="fas fa-user-graduate"></i>',
+                        'Bank Passbook': '<i class="fas fa-university"></i>',
+                        'Bank Statement': '<i class="fas fa-chart-line"></i>',
+                        'Invoice': '<i class="fas fa-file-invoice"></i>',
+                        'Bill/Receipt': '<i class="fas fa-receipt"></i>',
+                        'Salary Slip': '<i class="fas fa-money-check-alt"></i>',
+                        'Community Certificate': '<i class="fas fa-certificate"></i>',
+                        'Medical Report': '<i class="fas fa-notes-medical"></i>',
+                        'Unknown Document': '<i class="fas fa-file-alt"></i>'
+                    };
+
+                    const icon = docTypeIcons[data.document_type] || '<i class="fas fa-file-alt"></i>';
+                    const confidence = Math.round(data.document_confidence * 100);
+
+                    document.getElementById('docTypeIcon').innerHTML = icon;
+                    document.getElementById('docTypeName').textContent = data.document_type;
+                    document.getElementById('docTypeConfidence').textContent = confidence + '%';
+                    document.getElementById('docTypeConfidence').className =
+                        confidence >= 70 ? 'confidence-badge' : 'confidence-badge confidence-low';
+                    document.getElementById('docTypeBanner').style.display = 'flex';
+                }
+
+                document.getElementById('fieldCount').textContent = data.detected_fields.length;
+
+                const list = document.getElementById('fieldsList');
+                list.innerHTML = '';
+
+                data.detected_fields.forEach((f, i) => {
+                    const div = document.createElement('div');
+                    div.className = 'field-item' + (f.is_sensitive ? ' sensitive' : '');
+                    div.innerHTML = `
+                <label>
+                    <input type="checkbox" ${f.auto_selected ? 'checked' : ''} onchange="toggleField(${i}, this.checked)">
+                        <span class="field-name">${f.field_name}</span>
+                        <span class="field-value">: ${f.field_value}</span>
+                        <span class="field-meta">${f.category}, ${Math.round(f.confidence * 100)}%</span>
+                        ${f.is_sensitive ? '<span class="sensitive-tag"><i class="fas fa-exclamation-triangle"></i> Sensitive</span>' : ''}
+                </label>
+                `;
+                    list.appendChild(div);
+
+                    if (f.auto_selected) selectedFields.push(f);
+                });
+
+                hide('loading');
+                hide('uploadSection');
+                show('previewSection');
+                showSuccess(`<i class="fas fa-check-circle"></i> Detected: ${data.document_type} | Found ${data.detected_fields.length} fields`);
+                updateBtn();
+
+            } catch (err) {
+                showError('Error: ' + err.message);
+                hide('loading');
+            }
+        }
+
+        function toggleField(idx, checked) {
+            const field = docData.detected_fields[idx];
+            if (checked) {
+                if (!selectedFields.find(f => f.id === field.id)) selectedFields.push(field);
+            } else {
+                selectedFields = selectedFields.filter(f => f.id !== field.id);
+            }
+            document.getElementById('fieldCount').textContent = selectedFields.length;
+            updateBtn();
+        }
+
+        function selectAll() {
+            selectedFields = [...docData.detected_fields];
+            document.querySelectorAll('#fieldsList input').forEach(cb => cb.checked = true);
+            document.getElementById('fieldCount').textContent = selectedFields.length;
+            updateBtn();
+        }
+
+        function selectSensitive() {
+            selectedFields = docData.detected_fields.filter(f => f.is_sensitive);
+            document.querySelectorAll('#fieldsList input').forEach((cb, i) => {
+                cb.checked = docData.detected_fields[i].is_sensitive;
+            });
+            document.getElementById('fieldCount').textContent = selectedFields.length;
+            updateBtn();
+        }
+
+        function clearAll() {
+            selectedFields = [];
+            document.querySelectorAll('#fieldsList input').forEach(cb => cb.checked = false);
+            document.getElementById('fieldCount').textContent = 0;
+            updateBtn();
+        }
+
+        function updateBtn() {
+            document.getElementById('downloadBtn').disabled = selectedFields.length === 0;
+        }
+
+        async function downloadRedacted() {
+            if (selectedFields.length === 0) return;
+
+            show('loading');
+
+            try {
+                // Gather all options
+                const redactionStyle = document.getElementById('redactionStyle').value;
+                const blurStrength = parseInt(document.getElementById('blurSlider').value);
+                const pixelSize = parseInt(document.getElementById('pixelSlider').value);
+                const watermarkText = document.getElementById('watermarkText').value;
+                const watermarkPosition = document.getElementById('watermarkPosition').value;
+                const watermarkOpacity = parseInt(document.getElementById('watermarkOpacity').value);
+                const watermarkFontSize = parseInt(document.getElementById('watermarkFontSize').value);
+                const exportFormat = document.getElementById('exportFormat').value;
+                const jpegQuality = parseInt(document.getElementById('jpegQuality').value);
+
+                const payload = {
+                    image_data: docData.image_data,
+                    selected_fields: selectedFields.map(f => f.coordinates),
+                    redaction_style: redactionStyle,
+                    blur_strength: blurStrength,
+                    pixel_size: pixelSize,
+                    watermark: {
+                        text: watermarkText,
+                        position: watermarkPosition,
+                        opacity: watermarkOpacity,
+                        font_size: watermarkFontSize
+                    },
+                    export_format: exportFormat,
+                    jpeg_quality: jpegQuality
+                };
+
+                const res = await fetch('/api/blur-and-export', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await res.json();
+
+                if (!result.success) {
+                    showError(result.error || 'Processing failed');
+                    hide('loading');
+                    return;
+                }
+
+                // Determine file extension based on format
+                const extensions = { 'png': '.png', 'jpeg': '.jpg', 'pdf': '.pdf' };
+                const ext = extensions[exportFormat] || '.png';
+                const filename = docData.filename.replace(/\.[^/.]+$/, '') + '_redacted' + ext;
+
+                const link = document.createElement('a');
+                link.href = result.blurred_image;
+                link.download = filename;
+                link.click();
+
+                hide('loading');
+                showSuccess('<i class="fas fa-check-circle"></i> Document processed and downloaded successfully!');
+
+            } catch (err) {
+                showError('Download error: ' + err.message);
+                hide('loading');
+            }
+        }
+
+        function reset() {
+            docData = null;
+            selectedFields = [];
+            zoomLevel = 1.0;
+            rotation = 0;
+            document.getElementById('fileInput').value = '';
+            hide('previewSection');
+            hide('docTypeBanner');
+            show('uploadSection');
+            hide('errorAlert');
+            hide('successAlert');
+        }
+
+        // Zoom functionality
+        function zoomIn() {
+            zoomLevel = Math.min(zoomLevel + 0.2, 3.0);
+            updateImageTransform();
+        }
+
+        function zoomOut() {
+            zoomLevel = Math.max(zoomLevel - 0.2, 0.5);
+            updateImageTransform();
+        }
+
+        function resetZoom() {
+            zoomLevel = 1.0;
+            updateImageTransform();
+        }
+
+        // Rotation functionality
+        function rotateLeft() {
+            rotation = (rotation - 90 + 360) % 360;
+            updateImageTransform();
+        }
+
+        function rotateRight() {
+            rotation = (rotation + 90) % 360;
+            updateImageTransform();
+        }
+
+        function updateImageTransform() {
+            const img = document.getElementById('docImage');
+            img.style.transform = `scale(${zoomLevel}) rotate(${rotation}deg)`;
+            document.getElementById('zoomLevel').textContent = `${Math.round(zoomLevel * 100)}%`;
+            document.getElementById('rotationAngle').textContent = `${rotation}°`;
+        }
+
+        // Pan functionality
+        const imageContainer = document.getElementById('imageContainer');
+
+        imageContainer.addEventListener('mousedown', (e) => {
+            isPanning = true;
+            imageContainer.style.cursor = 'grabbing';
+            startX = e.pageX - imageContainer.offsetLeft;
+            startY = e.pageY - imageContainer.offsetTop;
+            scrollLeft = imageContainer.scrollLeft;
+            scrollTop = imageContainer.scrollTop;
+        });
+
+        imageContainer.addEventListener('mouseleave', () => {
+            isPanning = false;
+            imageContainer.style.cursor = 'grab';
+        });
+
+        imageContainer.addEventListener('mouseup', () => {
+            isPanning = false;
+            imageContainer.style.cursor = 'grab';
+        });
+
+        imageContainer.addEventListener('mousemove', (e) => {
+            if (!isPanning) return;
+            e.preventDefault();
+            const x = e.pageX - imageContainer.offsetLeft;
+            const y = e.pageY - imageContainer.offsetTop;
+            const walkX = (x - startX) * 1.5;
+            const walkY = (y - startY) * 1.5;
+            imageContainer.scrollLeft = scrollLeft - walkX;
+            imageContainer.scrollTop = scrollTop - walkY;
+        });
+
+        // Mouse wheel zoom
+        imageContainer.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            if (e.deltaY < 0) {
+                zoomIn();
+            } else {
+                zoomOut();
+            }
+        }, { passive: false });
+
+        function show(id) { document.getElementById(id).style.display = 'block'; }
+        function hide(id) { document.getElementById(id).style.display = 'none'; }
+        function showError(msg) { document.getElementById('errorAlert').innerHTML = msg; show('errorAlert'); }
+        function showSuccess(msg) { document.getElementById('successAlert').innerHTML = msg; show('successAlert'); }
+
+        const uploadArea = document.querySelector('.upload-area');
+        uploadArea.ondragover = (e) => { e.preventDefault(); uploadArea.style.background = 'rgba(255, 255, 255, 0.2)'; };
+        uploadArea.ondragleave = () => { uploadArea.style.background = ''; };
+        uploadArea.ondrop = (e) => {
+            e.preventDefault();
+            uploadArea.style.background = '';
+            if (e.dataTransfer.files.length) {
+                document.getElementById('fileInput').files = e.dataTransfer.files;
+                handleUpload({ target: { files: e.dataTransfer.files } });
+            }
+        };
+
+        // History Functionality
+        async function showHistory() {
+            const modal = document.getElementById('historyModal');
+            const list = document.getElementById('historyList');
+            modal.style.display = 'flex';
+            list.innerHTML = '<div class="loading" style="display:block">Loading history...</div>';
+
+            try {
+                const res = await fetch('/api/history');
+                const data = await res.json();
+
+                if (data.success && data.history.length > 0) {
+                    list.innerHTML = data.history.map(item => `
+                        <div class="history-item">
+                            <div class="history-icon"><i class="fas fa-file-alt"></i></div>
+                            <div class="history-details">
+                                <div class="history-name">${item.filename}</div>
+                                <div class="history-meta">
+                                    ${item.document_type} • ${item.total_fields} fields • ${new Date(item.timestamp).toLocaleString()}
+                                </div>
+                            </div>
+                            <div class="history-status"><i class="fas fa-check-circle"></i> ${item.status}</div>
+                        </div>
+                    `).join('');
+                } else {
+                    list.innerHTML = '<div style="text-align:center; color:rgba(255,255,255,0.6); padding:20px"><i class="fas fa-inbox"></i> No history found</div>';
+                }
+            } catch (err) {
+                list.innerHTML = '<div style="text-align:center; color:var(--danger)">Failed to load history</div>';
+            }
+        }
+
+        function closeHistory() {
+            document.getElementById('historyModal').style.display = 'none';
+        }
+
+        // Close modal on outside click
+        window.onclick = function (event) {
+            const modal = document.getElementById('historyModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Dynamic option visibility based on selections
+        document.getElementById('redactionStyle').addEventListener('change', function () {
+            const style = this.value;
+            const blurGroup = document.getElementById('blurStrengthGroup');
+            const pixelGroup = document.getElementById('pixelSizeGroup');
+
+            if (style === 'blur') {
+                blurGroup.style.display = 'block';
+                pixelGroup.style.display = 'none';
+            } else if (style === 'pixelate') {
+                blurGroup.style.display = 'none';
+                pixelGroup.style.display = 'block';
+            } else {
+                blurGroup.style.display = 'none';
+                pixelGroup.style.display = 'none';
+            }
+        });
+
+        document.getElementById('exportFormat').addEventListener('change', function () {
+            const format = this.value;
+            const qualityGroup = document.getElementById('jpegQualityGroup');
+            qualityGroup.style.display = format === 'jpeg' ? 'block' : 'none';
+        });
+
+        // Template Management Functions
+        async function saveTemplate() {
+            const templateName = document.getElementById('templateName').value.trim();
+            if (!templateName) {
+                showError('Please enter a template name');
+                return;
+            }
+
+            const templateData = {
+                name: templateName,
+                settings: {
+                    redactionStyle: document.getElementById('redactionStyle').value,
+                    blurStrength: parseInt(document.getElementById('blurSlider').value),
+                    pixelSize: parseInt(document.getElementById('pixelSlider').value),
+                    watermark: {
+                        text: document.getElementById('watermarkText').value,
+                        position: document.getElementById('watermarkPosition').value,
+                        opacity: parseInt(document.getElementById('watermarkOpacity').value),
+                        fontSize: parseInt(document.getElementById('watermarkFontSize').value)
+                    },
+                    exportFormat: document.getElementById('exportFormat').value,
+                    jpegQuality: parseInt(document.getElementById('jpegQuality').value)
+                }
+            };
+
+            try {
+                const res = await fetch('/api/templates/save', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(templateData)
+                });
+
+                const result = await res.json();
+                if (result.success) {
+                    showSuccess(`<i class="fas fa-check-circle"></i> Template "${templateName}" saved successfully!`);
+                    document.getElementById('templateName').value = '';
+                    loadTemplates();
+                } else {
+                    showError(result.error || 'Failed to save template');
+                }
+            } catch (err) {
+                showError('Error saving template: ' + err.message);
+            }
+        }
+
+        async function loadTemplates() {
+            try {
+                const res = await fetch('/api/templates/list');
+                const result = await res.json();
+
+                if (result.success) {
+                    const select = document.getElementById('templateSelect');
+                    select.innerHTML = '<option value="">-- Select a template --</option>';
+
+                    result.templates.forEach(template => {
+                        const option = document.createElement('option');
+                        option.value = template._id;
+                        option.textContent = template.name;
+                        select.appendChild(option);
+                    });
+                }
+            } catch (err) {
+                console.error('Error loading templates:', err);
+            }
+        }
+
+        async function applyTemplate() {
+            const templateId = document.getElementById('templateSelect').value;
+            if (!templateId) {
+                showError('Please select a template');
+                return;
+            }
+
+            try {
+                const res = await fetch(`/api/templates/get/${templateId}`);
+                const result = await res.json();
+
+                if (result.success && result.template) {
+                    const settings = result.template.settings;
+
+                    // Apply all settings
+                    document.getElementById('redactionStyle').value = settings.redactionStyle;
+                    document.getElementById('blurSlider').value = settings.blurStrength;
+                    document.getElementById('blurValue').textContent = settings.blurStrength;
+                    document.getElementById('pixelSlider').value = settings.pixelSize;
+                    document.getElementById('pixelValue').textContent = settings.pixelSize;
+
+                    document.getElementById('watermarkText').value = settings.watermark.text;
+                    document.getElementById('watermarkPosition').value = settings.watermark.position;
+                    document.getElementById('watermarkOpacity').value = settings.watermark.opacity;
+                    document.getElementById('opacityValue').textContent = settings.watermark.opacity;
+                    document.getElementById('watermarkFontSize').value = settings.watermark.fontSize;
+                    document.getElementById('fontSizeValue').textContent = settings.watermark.fontSize;
+
+                    document.getElementById('exportFormat').value = settings.exportFormat;
+                    document.getElementById('jpegQuality').value = settings.jpegQuality;
+                    document.getElementById('qualityValue').textContent = settings.jpegQuality;
+
+                    // Trigger change events
+                    document.getElementById('redactionStyle').dispatchEvent(new Event('change'));
+                    document.getElementById('exportFormat').dispatchEvent(new Event('change'));
+
+                    showSuccess(`<i class="fas fa-check-circle"></i> Template "${result.template.name}" applied!`);
+                } else {
+                    showError('Failed to load template');
+                }
+            } catch (err) {
+                showError('Error applying template: ' + err.message);
+            }
+        }
+
+        // Load templates on page load
+        loadTemplates();
+    </script>
+
+    <!-- History Modal -->
+    <div id="historyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-history"></i> Processing History</h2>
+                <span class="close-modal" onclick="closeHistory()">&times;</span>
+            </div>
+            <div id="historyList" class="history-list"></div>
+        </div>
+    </div>
+
+    <style>
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+        }
+
+        .close-modal {
+            color: var(--text-muted);
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--text-primary);
+        }
+
+        .history-list {
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 16px;
+            border-bottom: 1px solid var(--glass-border);
+            transition: background 0.2s;
+        }
+
+        .history-item:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .history-icon {
+            font-size: 1.5rem;
+            background: var(--bg-tertiary);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            color: var(--primary-light);
+        }
+
+        .history-details {
+            flex: 1;
+        }
+
+        .history-name {
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .history-meta {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .history-status {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success-light);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+    </style>
+</body>
+
+
+</html>

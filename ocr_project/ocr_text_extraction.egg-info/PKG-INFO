@@ -1,0 +1,111 @@
+Metadata-Version: 2.4
+Name: ocr-text-extraction
+Version: 1.0.0
+Summary: OCR Image to Text Extraction with preprocessing capabilities
+Author-email: OCR Project <ocr@example.com>
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: pytesseract==0.3.10
+Requires-Dist: opencv-python==4.8.1.78
+Requires-Dist: Pillow==10.0.0
+Requires-Dist: numpy==1.26.1
+Provides-Extra: dev
+Requires-Dist: pytest==7.4.0; extra == "dev"
+
+# OCR Text Extraction Project
+
+A Python project for extracting text from images using OCR (Optical Character Recognition) with preprocessing capabilities.
+
+## Features
+
+- Text extraction from images using Tesseract OCR
+- Image preprocessing (grayscale, thresholding, denoising)
+- Command-line interface
+- Support for common image formats (PNG, JPG, TIFF, etc.)
+
+## Prerequisites
+
+### Windows Setup
+1. **Install Tesseract OCR:**
+   - Download from: https://github.com/UB-Mannheim/tesseract/wiki
+   - Install to default location (usually `C:\Program Files\Tesseract-OCR\`)
+   - Add to PATH: `C:\Program Files\Tesseract-OCR\`
+
+2. **Verify Tesseract installation:**
+   ```powershell
+   tesseract --version
+   ```
+
+## Installation
+
+1. **Create virtual environment:**
+   ```powershell
+   python -m venv venv
+   .\venv\Scripts\Activate.ps1
+   ```
+
+2. **Install dependencies:**
+   ```powershell
+   pip install -r requirements.txt
+   ```
+
+## Usage
+
+### Python API
+```python
+from ocr import extract_text, preprocess_image
+
+# Extract text directly from image path
+text = extract_text("path/to/image.jpg")
+print(text)
+
+# With preprocessing
+processed_image = preprocess_image("path/to/image.jpg")
+text = extract_text(processed_image)
+print(text)
+```
+
+### Command Line
+```powershell
+# Basic extraction
+python -m ocr.ocr path/to/image.jpg
+
+# With preprocessing
+python -m ocr.ocr path/to/image.jpg --preprocess
+```
+
+## Testing
+
+```powershell
+pytest tests/ -v
+```
+
+## Project Structure
+
+```
+ocr_project/
+├── ocr/
+│   ├── __init__.py
+│   ├── ocr.py           # Main OCR functionality
+│   └── preprocess.py    # Image preprocessing
+├── tests/
+│   ├── test_ocr.py
+│   └── test_preprocess.py
+├── requirements.txt
+└── README.md
+```
+
+## Troubleshooting
+
+- **Tesseract not found**: Ensure Tesseract is installed and in PATH
+- **Poor OCR accuracy**: Try preprocessing options or higher DPI images
+- **Memory issues**: Use smaller images or batch processing for large datasets
