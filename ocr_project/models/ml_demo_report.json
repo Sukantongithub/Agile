@@ -1,0 +1,9 @@
+{
+  "demo_date": "2025-11-13T09:34:10.127953",
+  "document_types_supported": 11,
+  "test_documents": 8,
+  "correct_predictions": 8,
+  "demo_accuracy": 1.0,
+  "features_demonstrated": 10,
+  "training_capabilities": 8
+}

@@ -1,0 +1,7 @@
+pytesseract==0.3.10
+opencv-python==4.8.1.78
+Pillow==10.0.0
+numpy==1.26.1
+
+[dev]
+pytest==7.4.0

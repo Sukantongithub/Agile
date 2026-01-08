@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - SecureRedact Pro</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-light: #6366f1;
+            --primary-dark: #4338ca;
+            --secondary: #8b5cf6;
+            --success: #10b981;
+            --success-light: #34d399;
+            --danger: #ef4444;
+            --danger-light: #f87171;
+            --warning: #f59e0b;
+            --warning-light: #fbbf24;
+            --info: #3b82f6;
+            --dark: #1e293b;
+            --dark-light: #334155;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #94a3b8;
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(100, 116, 139, 0.3);
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--text-primary);
+        }
+
+        /* Header Styles */
+        .header {
+            background: var(--bg-secondary);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .header-logo {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .header-text h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .header-text p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .nav-btn {
+            background: var(--primary);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 40px 20px;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Settings Sections */
+        .settings-section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 24px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .section-header i {
+            font-size: 1.5rem;
+            color: var(--primary-light);
+        }
+
+        .section-header h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .form-label i {
+            margin-right: 6px;
+            color: var(--primary-light);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .form-input:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 14px 18px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success-light);
+            border-left: 4px solid var(--success);
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger-light);
+            border-left: 4px solid var(--danger);
+        }
+
+        .alert i {
+            font-size: 1.2rem;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--glass-border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+            border-color: var(--primary);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 10px;
+            padding: 16px;
+            display: flex;
+            align-items: start;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .info-box i {
+            color: var(--info);
+            font-size: 1.2rem;
+            margin-top: 2px;
+        }
+
+        .info-box-content {
+            flex: 1;
+        }
+
+        .info-box-title {
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .info-box-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--glass-border);
+            padding: 20px 40px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <a href="/document-redaction" class="header-brand">
+            <div class="header-logo">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="header-text">
+                <h1>SecureRedact Pro</h1>
+                <p>Enterprise Document Security</p>
+            </div>
+        </a>
+        <nav class="header-nav">
+            <a href="/document-redaction" class="nav-link"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="/history" class="nav-link"><i class="fas fa-history"></i> History</a>
+            <a href="/analytics" class="nav-link"><i class="fas fa-chart-bar"></i> Analytics</a>
+            <a href="/settings" class="nav-link active"><i class="fas fa-cog"></i> Settings</a>
+            <a href="/logout" class="nav-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title"><i class="fas fa-user-cog"></i> Account Settings</h1>
+            <p class="page-subtitle">Manage your personal information and security preferences</p>
+        </div>
+
+        <!-- Alerts -->
+        <div class="alert alert-success" id="successAlert">
+            <i class="fas fa-check-circle"></i>
+            <span id="successMessage"></span>
+        </div>
+        <div class="alert alert-error" id="errorAlert">
+            <i class="fas fa-exclamation-circle"></i>
+            <span id="errorMessage"></span>
+        </div>
+
+        <!-- Profile Information Section -->
+        <div class="settings-section">
+            <div class="section-header">
+                <i class="fas fa-user"></i>
+                <h2>Profile Information</h2>
+            </div>
+
+            <form id="profileForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-user-circle"></i> Username</label>
+                        <input type="text" class="form-input" id="username" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-envelope"></i> Email Address</label>
+                        <input type="email" class="form-input" id="email" required>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <i class="fas fa-info-circle"></i>
+                    <div class="info-box-content">
+                        <div class="info-box-title">Username cannot be changed</div>
+                        <div class="info-box-text">Your username is permanent and cannot be modified for security reasons.</div>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="loadUserData()">
+                        <i class="fas fa-undo"></i> Reset
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Change Password Section -->
+        <div class="settings-section">
+            <div class="section-header">
+                <i class="fas fa-lock"></i>
+                <h2>Change Password</h2>
+            </div>
+
+            <form id="passwordForm">
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-key"></i> Current Password</label>
+                    <input type="password" class="form-input" id="currentPassword" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-lock"></i> New Password</label>
+                        <input type="password" class="form-input" id="newPassword" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-lock"></i> Confirm New Password</label>
+                        <input type="password" class="form-input" id="confirmPassword" required minlength="6">
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <i class="fas fa-shield-alt"></i>
+                    <div class="info-box-content">
+                        <div class="info-box-title">Password Requirements</div>
+                        <div class="info-box-text">Password must be at least 6 characters long. Use a combination of letters, numbers, and special characters for better security.</div>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-shield-alt"></i> Update Password
+                    </button>
+                    <button type="reset" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Clear
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <strong><i class="fas fa-shield-alt"></i> SecureRedact Pro</strong> &copy; 2025. All rights reserved.
+    </footer>
+
+    <script>
+        // Load user data on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserData();
+        });
+
+        async function loadUserData() {
+            try {
+                const res = await fetch('/api/user/profile');
+                const data = await res.json();
+
+                if (data.success) {
+                    document.getElementById('username').value = data.user.username;
+                    document.getElementById('email').value = data.user.email;
+                } else {
+                    showError('Failed to load user data');
+                }
+            } catch (err) {
+                showError('Error loading user data: ' + err.message);
+            }
+        }
+
+        // Profile Form Submission
+        document.getElementById('profileForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+
+            try {
+                const res = await fetch('/api/user/update-profile', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+
+                const data = await res.json();
+
+                if (data.success) {
+                    showSuccess('Profile updated successfully!');
+                } else {
+                    showError(data.message || 'Failed to update profile');
+                }
+            } catch (err) {
+                showError('Error updating profile: ' + err.message);
+            }
+        });
+
+        // Password Form Submission
+        document.getElementById('passwordForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Validate passwords match
+            if (newPassword !== confirmPassword) {
+                showError('New passwords do not match!');
+                return;
+            }
+
+            // Validate password length
+            if (newPassword.length < 6) {
+                showError('Password must be at least 6 characters long!');
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/user/change-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        current_password: currentPassword,
+                        new_password: newPassword 
+                    })
+                });
+
+                const data = await res.json();
+
+                if (data.success) {
+                    showSuccess('Password changed successfully!');
+                    document.getElementById('passwordForm').reset();
+                } else {
+                    showError(data.message || 'Failed to change password');
+                }
+            } catch (err) {
+                showError('Error changing password: ' + err.message);
+            }
+        });
+
+        function showSuccess(message) {
+            const alert = document.getElementById('successAlert');
+            const messageEl = document.getElementById('successMessage');
+            messageEl.textContent = message;
+            alert.style.display = 'flex';
+            
+            document.getElementById('errorAlert').style.display = 'none';
+
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 5000);
+        }
+
+        function showError(message) {
+            const alert = document.getElementById('errorAlert');
+            const messageEl = document.getElementById('errorMessage');
+            messageEl.textContent = message;
+            alert.style.display = 'flex';
+            
+            document.getElementById('successAlert').style.display = 'none';
+
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+# QUICK FIX FOR app.py
+# The app.py file has syntax errors. Follow these steps:
+
+# STEP 1: Find line 1848 in app.py (it has a docstring outside of any function)
+# STEP 2: Delete lines 1848-208X (all the duplicate code)
+# STEP 3: Make sure the file ends properly with:
+
+"""
+...previous code...
+
+@app.route('/document-redaction')
+def document_redaction_page():
+    return render_template('document_redaction.html')
+
+if __name__ == '__main__':
+    create_upload_folder()
+    
+    print("🚀 Starting Raw OCR Web Application...")
+    print("📁 Upload folder:", Path(app.config['UPLOAD_FOLDER']).absolute())
+    print("🌐 Access the application at: http://localhost:5000")
+    print("✨ Features: Raw OCR extraction, certificate detection, drag-and-drop upload")
+    
+    atexit.register(cleanup_db)
+    
+    app.run(debug=False, host='0.0.0.0', port=5000, 
+           threaded=True, use_reloader=False)
+"""
+
+# The document_redaction.html page is ready and will work with the existing /api/blur-and-export endpoint!

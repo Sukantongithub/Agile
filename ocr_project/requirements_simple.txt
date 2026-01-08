@@ -1,0 +1,8 @@
+pytesseract==0.3.10
+opencv-python==4.8.1.78
+Pillow==10.0.0
+numpy==1.26.1
+flask==3.0.0
+pymongo==4.15.4
+dnspython==2.8.0
+img2pdf==0.5.1

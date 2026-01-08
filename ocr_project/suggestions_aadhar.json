@@ -1,0 +1,94 @@
+{
+  "success": true,
+  "document_type": "AADHAR_CARD",
+  "extracted_text": "\n            Government of India\n            Unique Identification Authority of India\n            Enrollment No.: 0640/02143/02550\n            To\n            Nithiyanantham T\n            S/O: Thangavel\n            kulathur patti,\n            VTC: Viswanathapuri, PO: Viswanathapuri,\n            Sub District: Aravakurichi, District: Karur,\n            State: Tamil Nadu, PIN Code: 639002,\n            Mobile: 9345527291\n            Your Aadhaar No.: 6088 9862 5039\n            ",
+  "extracted_fields": {
+    "aadhar_number": {
+      "value": "608898625039",
+      "confidence": 0.8999999999999999,
+      "position": [
+        450,
+        464
+      ],
+      "raw_match": "6088 9862 5039",
+      "pattern_used": "\\b(\\d{4})\\s*(\\d{4})\\s*(\\d{4})\\b"
+    },
+    "name": {
+      "value": "Nithiyanantham T S",
+      "confidence": 0.7,
+      "position": [
+        143,
+        188
+      ],
+      "raw_match": "To\n            Nithiyanantham T\n            S",
+      "pattern_used": "(?:to|name|\u0928\u093e\u092e)\\s*[:\\s]*([a-zA-Z\\s]{2,50})"
+    },
+    "father_name": {
+      "value": "Thangavel Kulathur Patti",
+      "confidence": 0.6,
+      "position": [
+        187,
+        228
+      ],
+      "raw_match": "S/O: Thangavel\n            kulathur patti",
+      "pattern_used": "(?:s/o|son of|father|\u092a\u093f\u0924\u093e|w/o|wife of|d/o|daughter of)\\s*[:\\s]*([a-zA-Z\\s]{2,50})"
+    },
+    "address": {
+      "value": "Viswanathapuri, PO",
+      "confidence": 0.6,
+      "position": [
+        242,
+        265
+      ],
+      "raw_match": "VTC: Viswanathapuri, PO",
+      "pattern_used": "(?:address|\u092a\u0924\u093e|vtc|po)\\s*[:\\s]*([a-zA-Z0-9\\s,.-]{10,100})"
+    },
+    "mobile": {
+      "value": "9345527291",
+      "confidence": 0.7,
+      "position": [
+        401,
+        419
+      ],
+      "raw_match": "Mobile: 9345527291",
+      "pattern_used": "(?:mobile|\u092e\u094b\u092c\u093e\u0907\u0932)\\s*[:\\s]*(\\d{10})"
+    },
+    "enrollment_no": {
+      "value": "0640/02143/02550",
+      "confidence": 0.7999999999999999,
+      "position": [
+        114,
+        130
+      ],
+      "raw_match": "0640/02143/02550",
+      "pattern_used": "(\\d{4}/\\d{5}/\\d{5})"
+    },
+    "pin_code": {
+      "value": "639002",
+      "confidence": 0.7999999999999999,
+      "position": [
+        371,
+        387
+      ],
+      "raw_match": "PIN Code: 639002",
+      "pattern_used": "(?:pin\\s*code|pin|pincode)\\s*[:\\s]*(\\d{6})"
+    },
+    "state": {
+      "value": "Tamil Nadu",
+      "confidence": 0.7,
+      "position": [
+        352,
+        369
+      ],
+      "raw_match": "State: Tamil Nadu",
+      "pattern_used": "(?:state|\u0930\u093e\u091c\u094d\u092f)\\s*[:\\s]*([a-zA-Z\\s]{4,20})"
+    }
+  },
+  "metrics": {
+    "total_fields": 8,
+    "high_confidence_fields": 1,
+    "average_confidence": 0.725
+  },
+  "processing_timestamp": "2025-11-13T10:53:26.333825",
+  "image_path": "ml_training/train_img/aadhar.jpg"
+}
